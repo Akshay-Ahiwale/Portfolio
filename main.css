@@ -781,3 +781,64 @@
     font-size: 1rem;
     line-height: 1.5;
 }
+
+/* Hero Section */
+.banner {
+    height: 100vh; /* Full screen */
+    background: url("YOUR_IMAGE.jpg") center/cover no-repeat;
+    position: relative;
+}
+
+/* Dark overlay */
+.banner-overlay {
+    background: rgba(0, 0, 0, 0.55);
+    width: 100%;
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+/* Content container */
+.banner-content {
+    text-align: center;
+    color: #fff;
+    padding: 20px;
+}
+
+.banner-content h1 {
+    font-size: 70px;
+    font-weight: 800;
+    line-height: 1.1;
+    margin-bottom: 20px;
+}
+
+.banner-content p {
+    font-size: 20px;
+    margin-bottom: 30px;
+    font-style: italic;
+    opacity: 0.9;
+}
+
+.banner-btn {
+    display: inline-block;
+    padding: 15px 35px;
+    background: #d9123a;
+    color: #fff;
+    border-radius: 5px;
+    font-weight: 700;
+    text-transform: uppercase;
+    text-decoration: none;
+    font-size: 16px;
+    letter-spacing: 1px;
+    transition: 0.3s ease;
+}
+
+.banner-btn:hover {
+    background: #a80f2f;
+}
+
+.banner {
+    background-image: url("assets/img/hero.jpg");
+}
+
