@@ -1,133 +1,112 @@
-const navMenu = document.getElementById("nav-menu"),
-navToggle = document.getElementById("nav-toggle"),
-navItem = document.querySelectorAll(".nav__item"),
-header = document.getElementById("header");
+/*==================== SHOW MENU (Mobile) ====================*/
+const navMenu = document.getElementById('nav-menu'),
+      navToggle = document.getElementById('nav-toggle'),
+      navLinks = document.querySelectorAll('.nav__link');
 
-// open and close menu
-navToggle.addEventListener("click", () => {
-navMenu.classList.toggle("nav__menu--open");
-changeIcon();
-});
+/* Validate if constant exists */
+if(navToggle){
+    navToggle.addEventListener('click', () =>{
+        navMenu.classList.toggle('nav__menu--open');
+        changeIcon();
+    });
+}
 
-const scrollToHireMe = () => {
-  const hireMeSection = document.getElementById("hireMe");
-  hireMeSection.scrollIntoView({ behavior: "smooth" });
-};
+/*==================== REMOVE MENU MOBILE ====================*/
+const linkAction = () =>{
+    const navMenu = document.getElementById('nav-menu');
+    // When we click on each nav__link, we remove the show-menu class
+    navMenu.classList.remove('nav__menu--open');
+    changeIcon();
+}
+navLinks.forEach(n => n.addEventListener('click', linkAction));
 
-// close the menu when the user clicks the nav links
-navItem.forEach((item) => {
-item.addEventListener("click", () => {
-  if (navMenu.classList.contains("nav__menu--open")) {
-    navMenu.classList.remove("nav__menu--open");
-  }
-  changeIcon();
-});
-});
-
-// Change nav toggle icon
+/*==================== CHANGE MENU ICON ====================*/
 function changeIcon() {
-if (navMenu.classList.contains("nav__menu--open")) {
-  navToggle.classList.replace("ri-menu-3-line", "ri-close-line");
-} else {
-  navToggle.classList.replace("ri-close-line", "ri-menu-3-line");
+    if (navMenu.classList.contains("nav__menu--open")) {
+      navToggle.classList.replace("ri-menu-3-line", "ri-close-line");
+    } else {
+      navToggle.classList.replace("ri-close-line", "ri-menu-3-line");
+    }
 }
+
+/*==================== CHANGE BACKGROUND HEADER ====================*/
+function scrollHeader(){
+    const header = document.getElementById('header');
+    // When the scroll is greater than 50 viewport height, add the header--scroll class
+    if(this.scrollY >= 50) header.classList.add('header--scroll'); 
+    else header.classList.remove('header--scroll');
 }
+window.addEventListener('scroll', scrollHeader);
 
-// Downloading Resume
-// document.getElementsByClassName("btn btn--primary").addEventListener("click", function() {
-//   window.location.href = "../../assets/Calvin Mwangi.pdf"
-// })
+/*==================== TYPEWRITER EFFECT ====================*/
+const typewriterElement = document.getElementById("typewriter");
+const texts = [
+    "Trusted Domestic Provider",
+    "Reliable Domestic Solutions",
+    "Your Home Help Partner",
+    "Complete Home Care Services"
+];
 
-
-// Testimonial Slide
-
-const testimonialSlide = new Swiper(".testimonial__wrapper", {
-loop: true,
-spaceBetween: 30,
-centeredSlides: true,
-effect: "coverflow",
-grabCursor: true,
-slidesPerView: 1,
-coverflowEffect: {
-  rotate: 50,
-  stretch: 0,
-  depth: 100,
-  modifier: 1,
-  slideShadows: true,
-},
-pagination: {
-  el: ".swiper-pagination",
-  clickable: true,
-},
-
-breakpoints: {
-  520: {
-    slidesPerView: "auto",
-  },
-},
-});
-
-// header scroll animation
-window.addEventListener("scroll", () => {
-if (window.scrollY > 40) {
-  header.classList.add("header--scroll");
-} else {
-  header.classList.remove("header--scroll");
-}
-});
-
-// ScrollReveal animations
-const sr = ScrollReveal({
-duration: 2000,
-distance: "100px",
-delay: 400,
-reset: false,
-});
-
-sr.reveal(".hero__content, .about__content");
-sr.reveal(".hero__img", { origin: "top" });
-
-sr.reveal(
-".hero__info-wrapper, .skills__title, .skills__content, .qualification__name, .qualification__item, .service__card, .project__content, .testimonial__wrapper, .footer__content",
-{
-  delay: 500,
-  interval: 100,
-}
-);
-
-sr.reveal(".qualification__footer-text, .contact__content", {
-origin: "left",
-});
-
-sr.reveal(".qualification__footer .btn, .contact__btn", { origin: "right" });
-
-document.addEventListener('DOMContentLoaded', () => {
-const yearSpan = document.querySelector('.footer__copyright');
-const currentYear = new Date().getFullYear();
-yearSpan.innerHTML = yearSpan.innerHTML.replace('{currentYear}', currentYear);
-});
-
-<script>
-const track = document.querySelector(".testimonial-track");
-const prev = document.querySelector(".prev");
-const next = document.querySelector(".next");
-
+let count = 0;
 let index = 0;
-const cardWidth = 340; // matches min-width + gap
-const totalCards = document.querySelectorAll(".testimonial-card").length;
-const visibleCards = 3; // adjust based on your screen
+let currentText = "";
+let letter = "";
 
-next.addEventListener("click", () => {
-    if (index < totalCards - visibleCards) {
-        index++;
-        track.style.transform = `translateX(-${index * cardWidth}px)`;
+(function type() {
+    if (count === texts.length) {
+        count = 0;
     }
+    currentText = texts[count];
+    letter = currentText.slice(0, ++index);
+
+    if (typewriterElement) {
+        typewriterElement.textContent = letter;
+    }
+
+    if (letter.length === currentText.length) {
+        count++;
+        index = 0;
+        // Pause before starting the next word
+        setTimeout(type, 2000); 
+    } else {
+        // Typing speed
+        setTimeout(type, 100); 
+    }
+})();
+
+/*==================== CURRENT YEAR ====================*/
+const yearSpan = document.getElementById('year');
+if(yearSpan) {
+    yearSpan.textContent = new Date().getFullYear();
+}
+
+/*==================== SCROLL REVEAL ANIMATION ====================*/
+/* Make sure you have imported ScrollReveal in your HTML before this script */
+const sr = ScrollReveal({
+    origin: 'top',
+    distance: '60px',
+    duration: 2500,
+    delay: 400,
+    reset: true // Animations repeat on scroll up/down
 });
 
-prev.addEventListener("click", () => {
-    if (index > 0) {
-        index--;
-        track.style.transform = `translateX(-${index * cardWidth}px)`;
-    }
-});
-</script>
+// Banner / Hero
+sr.reveal('.banner-content');
+sr.reveal('.hero__content', {origin: 'left'});
+sr.reveal('.hero__img-wrapper', {origin: 'right', delay: 600});
+
+// About
+sr.reveal('.about__content', {origin: 'left'});
+sr.reveal('.skills__content', {interval: 200, origin: 'bottom'});
+
+// Services
+sr.reveal('.section__header');
+sr.reveal('.service__card', {interval: 100, distance: '40px'});
+
+// Testimonials
+sr.reveal('.review-card', {interval: 100, origin: 'bottom', distance: '50px'});
+
+// Contact
+sr.reveal('.contact__content', {origin: 'left'});
+sr.reveal('.contact__form-container', {origin: 'right'});
+sr.reveal('.footer__content', {origin: 'bottom', delay: 200});
