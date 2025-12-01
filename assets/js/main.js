@@ -1,14 +1,30 @@
 /*==================== SHOW MENU (Mobile) ====================*/
+/*==================== SHOW MENU ====================*/
 const navMenu = document.getElementById('nav-menu'),
       navToggle = document.getElementById('nav-toggle'),
       navLinks = document.querySelectorAll('.nav__link');
 
-/* Validate if constant exists */
+/* Toggle Menu */
 if(navToggle){
     navToggle.addEventListener('click', () =>{
         navMenu.classList.toggle('nav__menu--open');
         changeIcon();
     });
+}
+
+/* Close menu when a link is clicked */
+navLinks.forEach(n => n.addEventListener('click', () => {
+    navMenu.classList.remove('nav__menu--open');
+    changeIcon();
+}));
+
+/* Change Icon from 3-lines to X */
+function changeIcon() {
+    if (navMenu.classList.contains("nav__menu--open")) {
+      navToggle.classList.replace("ri-menu-3-line", "ri-close-line");
+    } else {
+      navToggle.classList.replace("ri-close-line", "ri-menu-3-line");
+    }
 }
 
 /*==================== REMOVE MENU MOBILE ====================*/
