@@ -90,6 +90,8 @@ const sr = ScrollReveal({
     reset: true // Animations repeat on scroll up/down
 });
 
+sr.reveal('.team-card', {interval: 100, origin: 'bottom', distance: '50px'});
+
 // Banner / Hero
 sr.reveal('.banner-content');
 sr.reveal('.hero__content', {origin: 'left'});
